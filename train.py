@@ -16,7 +16,6 @@ def ae_run_epoch(model, config, grad):
     for img, targ in loader:
         img.to(config['device'])
         out = model(img)
-        img = nn.Flatten()(img)
         loss = criterion(img, out)
         if grad:
             loss.backward()
