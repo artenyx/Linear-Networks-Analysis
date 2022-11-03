@@ -12,7 +12,7 @@ def ae_run_epoch(model, config, grad):
     optimizer = config['optimizer']
     criterion = config['criterion_usl']()
 
-    loss_epoch = 0
+    loss_epoch = 0.0
     for img, targ in loader:
         img.to(config['device'])
         out = model(img)
