@@ -33,7 +33,7 @@ def ae_train_layerwise(model, config):
 
     train_loss, test_loss = [], []
     for i in range(layers_to_add):
-        for epoch in epochs:
+        for epoch in range(epochs):
             train_loss.append((i, epoch, ae_run_epoch(model, config, True)))
             test_loss.append((i, epoch, ae_run_epoch(model, config, False)))
         model.add_layers_encoder(1)
