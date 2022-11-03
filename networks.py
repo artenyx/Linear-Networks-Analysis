@@ -3,7 +3,7 @@ import numpy as np
 
 
 def lin_layer_init(layer):
-    nn.init.xavier_normal_(layer.weight)
+    nn.init.orthogonal_(layer.weight)
     nn.init.constant_(layer.bias, 0)
 
 
