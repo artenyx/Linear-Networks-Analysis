@@ -1,19 +1,19 @@
 import torch
 import torch.nn as nn
+from datetime import datetime
 
-import networks
-import exp_config
+import networks, exp_config, load_data, train
 
 
-config1 = exp_config.get_config()
-config1["device"] = torch.device("cpu")
-model = networks.Linear_AE_LC(config1)
-print(model.layers_encoder)
-model.layers_encoder += [nn.Linear(200, 200)]
-print(model.layers)
-test_tensor = torch.randn((1, 1, 28, 28))
-print(test_tensor.shape)
+config = exp_config.get_config()
+config['device'] = torch.device("cpu")
+config['loaders'] = load_data.get_mnist()
+load_data.make_dir('ExperimentFiles/')
+config['exp_folder_path'] = 'ExperimentFiles/' + 'lw_ae_exp_' + datetime.now().strftime("%m-%d-%Y_%H-%M-%S") + '/'
 
-test_out = model(test_tensor)
-print(test_out.shape)
-print(model.layers)
+model = networks.Linear_AE_LC(config)
+
+config['layers_to_add'] = 10
+
+train.ae_train_layerwise(model, config)
+

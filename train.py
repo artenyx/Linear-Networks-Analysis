@@ -1,10 +1,51 @@
-def train_network_usl(model, config):
-    criterion = config["criterion_usl"]
-    optimizer = config["optimizer_type"](model.parameters(), lr=config["lr_usl"])
-    epochs = config["epochs_usl"]
+import pandas as pd
+
+import load_data
 
 
+def ae_run_epoch(model, config, grad):
+    if grad:
+        loader = config['loaders_usl'][0]
+    else:
+        loader = config['loaders_usl'][1]
+    optimizer = config['optimizer']
+    criterion = config['criterion_usl']
 
+    loss_epoch = 0
+    for img, targ in loader:
+        img.to(config['device'])
+        out = model(img)
+        loss = criterion(img, out)
+        if grad:
+            loss.backward()
+            optimizer.step()
+        loss_epoch += loss.item()
+        #out = out.reshape((-1, 1, 28, 28))
+    loss_epoch /= len(loader)
+    return loss_epoch
+
+
+def ae_train_layerwise(model, config):
+    load_data.make_dir(config['exp_folder_path'])
+    config['optimizer'] = config['optimizer_type'](model.parameters(), lr=config['lr_usl'])
+    epochs = config['epochs_per_layer_usl']
+    layers_to_add = config['total_layers']
+
+    for i in range(layers_to_add):
+        train_loss, test_loss = [], []
+        for epoch in epochs:
+            train_loss.append((i, epoch, ae_run_epoch(model, config, True)))
+            test_loss.append((i, epoch, ae_run_epoch(model, config, False)))
+        model.add_layers_encoder(1)
+        print(model.layers)
+    train_loss = pd.DataFrame(train_loss)
+    train_loss.to_csv(config['exp_folder_path']+'train_loss')
+    test_loss = pd.DataFrame(test_loss)
+    test_loss.to_csv(config['exp_folder_path']+'test_loss')
+    print("====COMPLETE====")
+    return
+
+'''
 def train_AE(model, first):
     """ Train a model. """
     config = get_model_configuration()
@@ -85,3 +126,4 @@ def greedy_layerwise_training(model, layers_to_add):
     # Process is complete
     print("Training process has finished.")
     return model, data
+'''
