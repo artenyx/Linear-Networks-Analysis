@@ -44,8 +44,7 @@ class Linear_AE_LC(nn.Module):
         new_layers_list = []
         for i in range(num_layers):
             new_layer = nn.Linear(self.layer_size, self.layer_size)
-            nn.init.xavier_normal_(new_layer.weight)
-            nn.init.constant_(new_layer.bias, 0)
+            lin_layer_init(new_layer)
             new_layers_list.append(new_layer)
         self.layers_encoder.extend(new_layers_list)
         self.set_structure()

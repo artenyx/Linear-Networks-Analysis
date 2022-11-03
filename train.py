@@ -20,7 +20,6 @@ def ae_run_epoch(model, config, grad):
         if grad:
             loss.backward()
             optimizer.step()
-        print(loss.item())
         loss_epoch += loss.item()
         #out = out.reshape((-1, 1, 28, 28))
     loss_epoch /= len(loader)
