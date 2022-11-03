@@ -14,15 +14,13 @@ def get_config():
         "criterion_class": nn.CrossEntropyLoss,
         "criterion_usl": nn.MSELoss,
         "optimizer_type": torch.optim.SGD,
+        "loaders_usl": None,
         "epochs_per_layer_usl_init": 1,
         "epochs_per_layer_usl": 1,
         "epochs_classif": 1,
         "lr_usl": 0.07,
         "lr_classif": 0.01,
         "layers_to_add": 0,
-
-        "current_epoch": None,
-        "current_layer": None
     }
 
     return config

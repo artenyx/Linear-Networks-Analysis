@@ -7,7 +7,7 @@ import networks, exp_config, load_data, train
 
 config = exp_config.get_config()
 config['device'] = torch.device("cpu")
-config['loaders'] = load_data.get_mnist(config)
+config['loaders_usl'] = load_data.get_mnist(config)
 load_data.make_dir('ExperimentFiles/')
 config['exp_folder_path'] = 'ExperimentFiles/' + 'lw_ae_exp_' + datetime.now().strftime("%m-%d-%Y_%H-%M-%S") + '/'
 
