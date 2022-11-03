@@ -13,7 +13,7 @@ config['exp_folder_path'] = 'ExperimentFiles/' + 'lw_ae_exp_' + datetime.now().s
 
 model = networks.Linear_AE_LC(config)
 
-config['layers_to_add'] = 10
+config['layers_to_add'] = 3
 config['epochs_per_layer_usl'] = 1
 
 train.ae_train_layerwise(model, config)

@@ -40,9 +40,9 @@ def ae_train_layerwise(model, config):
         model.add_layers_encoder(1)
         print(model.layers)
     train_loss = pd.DataFrame(train_loss)
-    train_loss.to_csv(config['exp_folder_path']+'train_loss')
+    train_loss.to_csv(config['exp_folder_path']+'train_loss.csv')
     test_loss = pd.DataFrame(test_loss)
-    test_loss.to_csv(config['exp_folder_path']+'test_loss')
+    test_loss.to_csv(config['exp_folder_path']+'test_loss.csv')
     print("====COMPLETE====")
     return
 
