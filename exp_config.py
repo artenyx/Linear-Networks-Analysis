@@ -19,7 +19,7 @@ def get_config():
         "epochs_classif": 1,
         "lr_usl": 0.07,
         "lr_classif": 0.01,
-        "total_layers": 0,
+        "layers_to_add": 0,
 
         "current_epoch": None,
         "current_layer": None

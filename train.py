@@ -29,10 +29,10 @@ def ae_train_layerwise(model, config):
     load_data.make_dir(config['exp_folder_path'])
     config['optimizer'] = config['optimizer_type'](model.parameters(), lr=config['lr_usl'])
     epochs = config['epochs_per_layer_usl']
-    layers_to_add = config['total_layers']
+    layers_to_add = config['layers_to_add']
 
+    train_loss, test_loss = [], []
     for i in range(layers_to_add):
-        train_loss, test_loss = [], []
         for epoch in epochs:
             train_loss.append((i, epoch, ae_run_epoch(model, config, True)))
             test_loss.append((i, epoch, ae_run_epoch(model, config, False)))
