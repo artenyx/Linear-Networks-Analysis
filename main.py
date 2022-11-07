@@ -22,6 +22,7 @@ def main(args):
 
 
 if __name__ == "__main__":
+    print("Running on cuda." if torch.cuda.is_available() else "Running on cpu.")
     parser = argparse.ArgumentParser("Linear Networks Analysis")
     parser.add_argument("--data_root", type=str, default="ExperimentFiles/")
     parser.add_argument("--add_layers", type=int, required=True, help="Number of layers to add to base model.")
