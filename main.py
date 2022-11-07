@@ -23,7 +23,7 @@ def main(args):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser("Linear Networks Analysis")
-    parser.add_argument("--data_root", type=str, default="data/")
+    parser.add_argument("--data_root", type=str, default="ExperimentFiles/")
     parser.add_argument("--add_layers", type=int, help="Number of layers to add to base model.")
     parser.add_argument("--epochs_per_layer", type=int, help="Number of epochs to run for each layer added.")
     '''
