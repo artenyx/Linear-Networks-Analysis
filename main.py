@@ -14,7 +14,7 @@ def main(args):
 
     model = networks.Linear_AE_LC(config)
 
-    config['layers_to_add'] = args.add_laters
+    config['layers_to_add'] = args.add_layers
     config['epochs_per_layer_usl'] = args.epochs_per_layer
 
     train.ae_train_layerwise(model, config)
