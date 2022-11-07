@@ -27,7 +27,7 @@ if __name__ == "__main__":
     parser.add_argument("--data_root", type=str, default="ExperimentFiles/")
     parser.add_argument("--add_layers", type=int, required=True, help="Number of layers to add to base model.")
     parser.add_argument("--epochs_per_layer", type=int, required=True, help="Number of epochs to run for each layer added.")
-    parser.add_argument("--tqdm", action="store_true", help="Run tqdm on batch loading for every epoch.")
+    parser.add_argument("--tqdm", action="store_false", help="Run tqdm on batch loading for every epoch.")
     '''
     parser.add_argument("--dataset", type=str, default="cifar10", choices=["cifar10", "svhn", "cifar100", "MNIST"])
     parser.add_argument("--data_root", type=str, default="../data")
