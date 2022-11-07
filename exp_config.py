@@ -21,6 +21,7 @@ def get_config():
         "lr_usl": 0.001,
         "lr_classif": 0.01,
         "layers_to_add": 0,
+        "tqdm": False
     }
 
     return config

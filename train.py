@@ -1,5 +1,6 @@
 import torch.nn as nn
 import pandas as pd
+import tqdm
 
 import load_data
 
@@ -13,17 +14,31 @@ def ae_run_epoch(model, config, grad):
     criterion = config['criterion_usl']()
 
     loss_epoch = 0.0
-    for img, targ in loader:
-        img.to(config['device'])
-        out = model(img)
-        loss = criterion(img, out)
-        if grad:
-            loss.backward()
-            optimizer.step()
-        loss_epoch += loss.item()
-        #out = out.reshape((-1, 1, 28, 28))
-    loss_epoch /= len(loader)
-    return loss_epoch
+    if config['tqdm']:
+        for i, (img, targ) in tqdm(enumerate(loader)):
+            img.to(config['device'])
+            out = model(img)
+            loss = criterion(img, out)
+            if grad:
+                loss.backward()
+                optimizer.step()
+            loss_epoch += loss.item()
+            #out = out.reshape((-1, 1, 28, 28))
+        loss_epoch /= len(loader)
+        return loss_epoch
+    else:
+        for i, (img, targ) in enumerate(loader):
+            img.to(config['device'])
+            out = model(img)
+            loss = criterion(img, out)
+            if grad:
+                loss.backward()
+                optimizer.step()
+            loss_epoch += loss.item()
+            #out = out.reshape((-1, 1, 28, 28))
+        loss_epoch /= len(loader)
+        return loss_epoch
+
 
 
 def ae_train_layerwise(model, config):
