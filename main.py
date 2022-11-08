@@ -1,3 +1,4 @@
+import pandas as pd
 import torch
 from datetime import datetime
 import argparse
@@ -12,7 +13,6 @@ def main(args):
     config['loaders_usl'] = load_data.get_mnist(config)
     config['loaders_class'] = load_data.get_mnist(config)
     load_data.make_dir(args.data_root)
-    config['exp_folder_path'] = args.data_root + 'lw_ae_exp_' + datetime.now().strftime("%m-%d-%Y_%H-%M-%S") + '/'
 
     model = networks.Linear_AE_LC(config)
 
@@ -20,8 +20,11 @@ def main(args):
     config['layers_per_step'] = args.layers_per_step
     config['steps'] = int(args.add_layers / args.layers_per_step)
     config['lr_usl'] = args.lr_usl
-
     config['epochs_per_layer_usl'] = args.epochs_per_step
+
+    config['exp_folder_path'] = args.data_root + 'lw_ae_exp_' + datetime.now().strftime("%m-%d-%Y_%H-%M-%S") + '/'
+    load_data.make_dir(config['exp_folder_path'])
+    pd.DataFrame(config).to_csv(config['exp_folder_path']+"config")
 
     model, data = train.train_ae_layerwise(model, config)
     train.train_classifier(model, config)

@@ -31,7 +31,6 @@ def ae_run_epoch(model, config, grad):
 
 
 def train_ae_layerwise(model, config):
-    load_data.make_dir(config['exp_folder_path'])
     config['optimizer'] = config['optimizer_type'](model.parameters(), lr=config['lr_usl'])
     epochs = config['epochs_per_layer_usl']
     steps = config['steps']
