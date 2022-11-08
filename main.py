@@ -17,7 +17,10 @@ def main(args):
     model = networks.Linear_AE_LC(config)
 
     config['layers_to_add'] = args.add_layers
-    config['epochs_per_layer_usl'] = args.epochs_per_layer
+    config['layers_per_step'] = args.layers_per_step
+    config['steps'] = args.add_layers / args.layers_per_step
+
+    config['epochs_per_layer_usl'] = args.epochs_per_layers
 
     model, data = train.train_ae_layerwise(model, config)
     train.train_classifier(model, config)
@@ -29,8 +32,11 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser("Linear Networks Analysis")
     parser.add_argument("--data_root", type=str, default="ExperimentFiles/")
     parser.add_argument("--add_layers", type=int, required=True, help="Number of layers to add to base model.")
+    parser.add_argument("--layers_per_step", type=int, default=1, help="Number of layers to add to per step.")
     parser.add_argument("--epochs_per_layer", type=int, required=True, help="Number of epochs to run for each layer added.")
     parser.add_argument("--epochs_classif", type=int, required=True, help="Number of epochs to run classifier for after initialization.")
     args = parser.parse_args()
+    if args.add_layers % args.layers_per_step != 0:
+        raise Exception("Added layers must be multiple of layers per step.")
 
     main(args)

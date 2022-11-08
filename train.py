@@ -34,11 +34,11 @@ def train_ae_layerwise(model, config):
     load_data.make_dir(config['exp_folder_path'])
     config['optimizer'] = config['optimizer_type'](model.parameters(), lr=config['lr_usl'])
     epochs = config['epochs_per_layer_usl']
-    layers_to_add = config['layers_to_add']
+    steps = config['steps']
     layers_per_step = config['layers_per_step']
 
     data = []
-    for i in range(layers_to_add):
+    for i in range(steps):
         for epoch in range(epochs):
             loss_train, time_train = ae_run_epoch(model, config, True)
             loss_test, time_test = ae_run_epoch(model, config, False)
@@ -88,7 +88,6 @@ def train_classifier(model, config):
     if config['device'] is None:
         raise Exception("Device must be configured in exp_config.")
     config['optimizer'] = config['optimizer_type'](model.parameters(), lr=config['lr_le'])
-    train_loader, test_loader = config['loaders']['loaders_le']
 
     data = []
     for epoch in range(config['num_epochs_le']):
