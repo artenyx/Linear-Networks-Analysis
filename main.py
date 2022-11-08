@@ -20,7 +20,7 @@ def main(args):
     config['layers_per_step'] = args.layers_per_step
     config['steps'] = args.add_layers / args.layers_per_step
 
-    config['epochs_per_layer_usl'] = args.epochs_per_layers
+    config['epochs_per_layer_usl'] = args.epochs_per_layer
 
     model, data = train.train_ae_layerwise(model, config)
     train.train_classifier(model, config)
