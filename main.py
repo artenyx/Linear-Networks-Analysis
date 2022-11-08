@@ -13,6 +13,7 @@ def main(args):
     config['layers_per_step'] = args.layers_per_step
     config['steps'] = int(args.add_layers / args.layers_per_step)
     config['lr_usl'] = args.lr_usl
+    config['lr_le'] = args.lr_le
     config['epochs_per_layer_usl'] = args.epochs_per_step
     config['device'] = torch.device("cpu")
 
@@ -43,7 +44,9 @@ if __name__ == "__main__":
     parser.add_argument("--layers_per_step", type=int, default=1, help="Number of layers to add to per step.")
     parser.add_argument("--epochs_per_step", type=int, required=True, help="Number of epochs to run for each layer added.")
     parser.add_argument("--epochs_classif", type=int, required=True, help="Number of epochs to run classifier for after initialization.")
-    parser.add_argument("--lr_usl", type=float, default=0.001)
+    parser.add_argument("--lr_usl", type=float, default=0.000001)
+    parser.add_argument("--lr_le", type=float, default=0.0001)
+
     args = parser.parse_args()
     if args.add_layers % args.layers_per_step != 0:
         raise Exception("Added layers must be multiple of layers per step.")
