@@ -19,6 +19,7 @@ def main(args):
     config['layers_to_add'] = args.add_layers
     config['layers_per_step'] = args.layers_per_step
     config['steps'] = int(args.add_layers / args.layers_per_step)
+    config['lr_usl'] = args.lr_usl
 
     config['epochs_per_layer_usl'] = args.epochs_per_step
 
@@ -35,6 +36,7 @@ if __name__ == "__main__":
     parser.add_argument("--layers_per_step", type=int, default=1, help="Number of layers to add to per step.")
     parser.add_argument("--epochs_per_step", type=int, required=True, help="Number of epochs to run for each layer added.")
     parser.add_argument("--epochs_classif", type=int, required=True, help="Number of epochs to run classifier for after initialization.")
+    parser.add_argument("--lr_usl", type=float, default=0.001)
     args = parser.parse_args()
     if args.add_layers % args.layers_per_step != 0:
         raise Exception("Added layers must be multiple of layers per step.")
