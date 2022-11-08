@@ -24,6 +24,7 @@ def main(args):
 
     config['exp_folder_path'] = args.data_root + 'lw_ae_exp_' + datetime.now().strftime("%m-%d-%Y_%H-%M-%S") + '/'
     load_data.make_dir(config['exp_folder_path'])
+    print(config)
     config_df = pd.DataFrame(config)
     config_df.to_csv(config['exp_folder_path']+"config")
 
